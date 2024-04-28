@@ -1,6 +1,12 @@
 import { PDFDocument } from "pdf-lib";
 import Sortable from "sortablejs";
 
+const workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const pdfjsLib = window["pdfjs-dist/build/pdf"];
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
+
 const drop_zone = document.getElementById("drop_zone");
 const upload_image = document.getElementById("upload_image");
 const upload_title = document.getElementById("upload_title");

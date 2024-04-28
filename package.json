@@ -5,7 +5,7 @@
   "source": "/src/index.html",
   "scripts": {
     "start": "parcel --no-cache",
-    "predeploy": "parcel build --public-url ./",
+    "predeploy": "parcel build  --no-cache --public-url ./",
     "deploy": "gh-pages -d dist"
   },
   "author": "Carlos eduardo",
