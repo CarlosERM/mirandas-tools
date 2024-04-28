@@ -23,7 +23,7 @@
     <title>Miranda Tools</title>
   </head>
   <body class="h-full bg-c1 text-c5 font-open">
-    <div class="h-full flex gap-4">
+    <div class="h-full flex flex-col-reverse lg:flex-row lg:gap-4">
       <main class="grow p-8">
         <form class="h-full">
           <input
@@ -35,9 +35,23 @@
             multiple
           />
           <div
-            class="p-8 group transition-all cursor-pointer ease-in-out outline-dashed outline-3 outline-c6 flex flex-col bg-c2 rounded-xl h-full justify-center drop-shadow-lg hover:drop-shadow-2xl hover:outline-offset-8 hover:mb-2"
+            class="overflow-y-scroll p-8 group transition-all cursor-pointer ease-in-out outline-dashed outline-3 outline-c6 flex flex-col bg-c2 rounded-xl h-full justify-center drop-shadow-lg hover:drop-shadow-2xl hover:outline-offset-8 hover:mb-2"
             id="drop_zone"
           >
+            <div
+              id="success-block"
+              class="self-center align-center flex flex-col hidden"
+            >
+              <img src="../public/success-icon.svg" class="w-40 self-center" />
+              <h3 class="text-5xl font-semibold text-center">Success!</h3>
+              <p class="text-2xl text-c7">The merge was succesfull!</p>
+              <a
+                id="download-pdf"
+                class="text-center mt-8 py-4 bg-c4 hover:bg-c10 active:bg-c11 w-full rounded-lg text-2xl font-bold mb-5"
+              >
+                Download PDF
+              </a>
+            </div>
             <img
               id="upload_image"
               class="group/photo:hidden transition-all w-40 self-center align-center group-hover:-translate-y-1.5"
@@ -53,23 +67,61 @@
         </form>
       </main>
       <aside class="p-8 relative">
-        <h1 class="font-bebas text-5xl mb-6">
-          Miranda's <span class="text-c3">PDF</span>
+        <h1
+          class="font-bebas text-center text-5xl sm:text-7xl lg:text-5xl mb-6 text-nowrap"
+        >
+          Miranda's <span class="text-c3">Tools</span>
         </h1>
         <button
+          id="merge-button"
           type="button"
-          class="py-4 bg-c4 hover:bg-c10 active:bg-c11 w-full rounded-lg text-2xl font-bold mb-5"
+          class="py-4 bg-c4 hover:bg-c10 active:bg-c11 w-full rounded-lg text-4xl lg:text-2xl font-bold mb-5"
         >
           Merge PDF
         </button>
+        <div id="split-block" class="mb-4 hidden">
+          <h4 class="text-lg font-semibold">Intervalo</h4>
+          <div class="flex gap-2">
+            <div class="flex">
+              <label
+                for="de"
+                class="px-4 py-1.5 bg-c3 text-base font-semibold rounded-l-lg"
+                >De</label
+              >
+              <input
+                name="de"
+                id="de"
+                type="number"
+                class="px-4 py-1 max-w-16 rounded-r-lg text-c1 focus:outline focus:outline-2 focus:outline-c4 focus:outline-offset-2"
+                placeholder="0"
+              />
+            </div>
+            <div class="flex">
+              <label
+                for="ate"
+                class="px-4 py-1.5 bg-c3 text-base font-semibold rounded-l-lg"
+                >Até</label
+              >
+              <input
+                name="ate"
+                id="ate"
+                type="number"
+                class="px-4 py-1 max-w-16 rounded-r-lg text-c1 focus:outline focus:outline-2 focus:outline-c4 focus:outline-offset-2"
+                placeholder="0"
+              />
+            </div>
+          </div>
+        </div>
         <button
           type="button"
-          class="py-4 bg-c4 hover:bg-c10 active:bg-c11 w-full rounded-lg text-2xl font-bold"
+          id="split-button"
+          class="py-4 bg-c4 hover:bg-c10 active:bg-c11 w-full rounded-lg text-4xl lg:text-2xl font-bold"
         >
           Split PDF
         </button>
-
-        <div class="absolute flex gap-7 bottom-8 left-1/2 -translate-x-1/2">
+        <div
+          class="absolute hidden lg:flex gap-7 bottom-8 left-1/2 -translate-x-1/2"
+        >
           <a
             href="https://github.com/CarlosERM"
             target="_blank"
@@ -86,6 +138,22 @@
           </a>
         </div>
       </aside>
+    </div>
+    <div class="flex justify-center lg:hidden gap-7 pb-6 lg:p-0">
+      <a
+        href="https://github.com/CarlosERM"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img class="h-12" src="../public/github-logo.png" />
+      </a>
+      <a
+        href="https://www.linkedin.com/in/carloserm/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img class="h-12" src="../public/linkedin-logo.png" />
+      </a>
     </div>
   </body>
 </html>
