@@ -180,7 +180,7 @@ function formatDropZoneOnSuccess() {
   drop_zone.removeEventListener("click", onClickHandler);
 }
 
-async function successPageFormatAndLink(pdf) {
+async function successPageFormatAndLink(pdf, filename) {
   const blob = new Blob([pdf]);
   const url = URL.createObjectURL(blob);
   const success = document.getElementById("success-block");
@@ -189,7 +189,7 @@ async function successPageFormatAndLink(pdf) {
   drop_zone.innerHTML = "";
 
   link_download.href = url;
-  link_download.download = "merged_pdf.pdf";
+  link_download.download = filename;
   drop_zone.appendChild(success);
   success.classList.remove("hidden");
 }
@@ -198,15 +198,14 @@ async function createDownloadPdfMerged() {
   if (canvas_items.length) {
     formatDropZoneOnSuccess();
     const mergedPdfFile = await mergePdfs();
-    successPageFormatAndLink(mergedPdfFile);
+    successPageFormatAndLink(mergedPdfFile, "mergedpdf.pdf");
   }
 }
 
 async function createDownloadPdfSplitted(pdfSplitted) {
-  console.log(pdfSplitted);
   if (canvas_items.length) {
     formatDropZoneOnSuccess();
-    successPageFormatAndLink(pdfSplitted);
+    successPageFormatAndLink(pdfSplitted, "splitted_pdf.pdf");
   }
 }
 
@@ -229,7 +228,6 @@ async function handleSplitButtonClick() {
     let canvas = canvas_items[0];
     const blob = await fetch(canvas.href).then((r) => r.blob());
     const pdf = await PDFDocument.load(await blob.arrayBuffer());
-
     const split_pdf = await PDFDocument.create();
     const numberPages = pdf.getPages().length;
 
