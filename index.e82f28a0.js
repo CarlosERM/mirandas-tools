@@ -603,7 +603,7 @@ const sortable = (0, _sortablejsDefault.default).create(drop_zone, {
 (0, _pdfSelectDefault.default)();
 (0, _splitPdfDefault.default)();
 
-},{"sortablejs":"4mik1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./merge_pdf":"kjr5O","./pdf_select":"fCPgD","./split_pdf":"6GVMP"}],"4mik1":[function(require,module,exports) {
+},{"sortablejs":"4mik1","./merge_pdf":"kjr5O","./pdf_select":"fCPgD","./split_pdf":"6GVMP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4mik1":[function(require,module,exports) {
 /**!
  * Sortable 1.15.2
  * @author	RubaXa   <trash@rubaxa.org>
@@ -3267,7 +3267,7 @@ function initMergePdf() {
     merge_bottom.addEventListener("click", createDownloadPdfMerged);
 }
 
-},{"./format_drop_zone":"d5Noq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","pdf-lib":"1YX9i","./succes_page_format":"62KCs"}],"d5Noq":[function(require,module,exports) {
+},{"./format_drop_zone":"d5Noq","pdf-lib":"1YX9i","./succes_page_format":"62KCs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d5Noq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>formatDropZoneOnSuccess);
@@ -3361,7 +3361,7 @@ function formatNewDropzone() {
     drop_zone.classList.add("overflow-y-scroll");
     drop_zone.classList.add("auto-rows-min");
 }
-function createPdfItem(file1) {
+function createPdfItem(file) {
     upload_image.remove();
     upload_title.remove();
     formatNewDropzone();
@@ -3394,7 +3394,7 @@ function createPdfItem(file1) {
                 itemPdf.classList.add("cursor-pointer");
                 const namePdf = document.createElement("h3");
                 namePdf.classList.add("text-center");
-                namePdf.innerText = file1.name;
+                namePdf.innerText = file.name;
                 canvas.classList.add("self-center");
                 canvas.classList.add("rounded-md");
                 canvas.addEventListener("click", handlePdfClick);
@@ -3404,7 +3404,7 @@ function createPdfItem(file1) {
             });
         });
     };
-    fileReader.readAsArrayBuffer(file1);
+    fileReader.readAsArrayBuffer(file);
 }
 function dropHandler(e) {
     e.preventDefault();
@@ -3412,14 +3412,14 @@ function dropHandler(e) {
         ...e.dataTransfer.items
     ].forEach(async (item, i)=>{
         if (item.type == "application/pdf") {
-            file = item.getAsFile();
+            let file = item.getAsFile();
             createPdfItem(file);
         }
     });
     else [
         ...e.dataTransfer.files
-    ].forEach((file1, i)=>{
-        console.log(`FILES  file[${i}].name = ${file1.name}`);
+    ].forEach((file, i)=>{
+        console.log(`FILES  file[${i}].name = ${file.name}`);
     });
 }
 function dragOverHandler(e) {
@@ -31685,7 +31685,7 @@ function createPdfItem(file) {
 const upload_image = document.getElementById("upload_image");
 const upload_title = document.getElementById("upload_title");
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./drag_and_drop":"kaOPZ"}],"6GVMP":[function(require,module,exports) {
+},{"./drag_and_drop":"kaOPZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6GVMP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>initHandleSplitPdf);
@@ -31733,6 +31733,6 @@ function initHandleSplitPdf() {
     split_button.addEventListener("click", handleSplitButtonClick);
 }
 
-},{"./format_drop_zone":"d5Noq","./succes_page_format":"62KCs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","pdf-lib":"1YX9i"}]},["2L15i","dV6cC"], "dV6cC", "parcelRequireeb4f")
+},{"./format_drop_zone":"d5Noq","./succes_page_format":"62KCs","pdf-lib":"1YX9i","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["2L15i","dV6cC"], "dV6cC", "parcelRequireeb4f")
 
 //# sourceMappingURL=index.e82f28a0.js.map
