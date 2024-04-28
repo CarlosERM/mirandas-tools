@@ -745,7 +745,7 @@ function formatDropZoneOnSuccess() {
     drop_zone.removeEventListener("dragover", dragOverHandler);
     drop_zone.removeEventListener("click", onClickHandler);
 }
-async function successPageFormatAndLink(pdf) {
+async function successPageFormatAndLink(pdf, filename) {
     const blob = new Blob([
         pdf
     ]);
@@ -754,7 +754,7 @@ async function successPageFormatAndLink(pdf) {
     const link_download = document.getElementById("download-pdf");
     drop_zone.innerHTML = "";
     link_download.href = url;
-    link_download.download = "merged_pdf.pdf";
+    link_download.download = filename;
     drop_zone.appendChild(success);
     success.classList.remove("hidden");
 }
@@ -762,14 +762,13 @@ async function createDownloadPdfMerged() {
     if (canvas_items.length) {
         formatDropZoneOnSuccess();
         const mergedPdfFile = await mergePdfs();
-        successPageFormatAndLink(mergedPdfFile);
+        successPageFormatAndLink(mergedPdfFile, "mergedpdf.pdf");
     }
 }
 async function createDownloadPdfSplitted(pdfSplitted) {
-    console.log(pdfSplitted);
     if (canvas_items.length) {
         formatDropZoneOnSuccess();
-        successPageFormatAndLink(pdfSplitted);
+        successPageFormatAndLink(pdfSplitted, "splitted_pdf.pdf");
     }
 }
 async function handlePdfSelect(e) {
