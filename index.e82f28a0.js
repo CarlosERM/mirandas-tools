@@ -31669,8 +31669,8 @@ function initHandleSplitPdf() {
             inputAte.placeholder = numberPages;
             if (inputDe.value && inputAte.value && inputDe.value != 0 && inputAte.value != 0 && inputDe.value >= 1 && inputAte.value >= 1 && inputDe.value <= inputAte.value) {
                 (0, _spinner.setSpinner)(true);
-                const startPage = inputDe.value;
-                const lastPage = inputAte.value;
+                const startPage = inputDe.value - 1;
+                const lastPage = inputAte.value - 1;
                 for(let i = startPage; i <= lastPage; i++){
                     const [copiedPage] = await split_pdf.copyPages(pdf, [
                         i
