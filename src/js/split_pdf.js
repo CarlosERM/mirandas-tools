@@ -37,8 +37,8 @@ export default function initHandleSplitPdf() {
         inputDe.value <= inputAte.value
       ) {
         setSpinner(true);
-        const startPage = inputDe.value;
-        const lastPage = inputAte.value;
+        const startPage = inputDe.value - 1;
+        const lastPage = inputAte.value - 1;
         for (let i = startPage; i <= lastPage; i++) {
           const [copiedPage] = await split_pdf.copyPages(pdf, [i]);
           split_pdf.addPage(copiedPage);
