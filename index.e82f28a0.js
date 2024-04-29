@@ -585,6 +585,8 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"dV6cC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "sortable", ()=>sortable);
 var _sortablejs = require("sortablejs");
 var _sortablejsDefault = parcelHelpers.interopDefault(_sortablejs);
 var _mergePdf = require("./merge_pdf");
@@ -3243,6 +3245,7 @@ var _formatDropZoneDefault = parcelHelpers.interopDefault(_formatDropZone);
 var _pdfLib = require("pdf-lib");
 var _succesPageFormat = require("./succes_page_format");
 var _succesPageFormatDefault = parcelHelpers.interopDefault(_succesPageFormat);
+var _spinner = require("./spinner");
 function initMergePdf() {
     async function mergePdfs() {
         const mergedPdf = await (0, _pdfLib.PDFDocument).create();
@@ -3257,9 +3260,11 @@ function initMergePdf() {
     }
     async function createDownloadPdfMerged() {
         if (canvas_items.length) {
+            (0, _spinner.setSpinner)(true);
             const mergedPdfFile = await mergePdfs();
             (0, _formatDropZoneDefault.default)();
             (0, _succesPageFormatDefault.default)(mergedPdfFile, "merged_pdf.pdf");
+            (0, _spinner.setSpinner)(false);
         }
     }
     const canvas_items = document.getElementsByClassName("pdf-item");
@@ -3267,7 +3272,7 @@ function initMergePdf() {
     merge_bottom.addEventListener("click", createDownloadPdfMerged);
 }
 
-},{"./format_drop_zone":"d5Noq","pdf-lib":"1YX9i","./succes_page_format":"62KCs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d5Noq":[function(require,module,exports) {
+},{"./format_drop_zone":"d5Noq","pdf-lib":"1YX9i","./succes_page_format":"62KCs","./spinner":"e4vVD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d5Noq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>formatDropZoneOnSuccess);
@@ -3281,7 +3286,7 @@ function formatDropZoneOnSuccess() {
     drop_zone.classList.remove("outline-c6");
     drop_zone.classList.remove("cursor-pointer");
     drop_zone.classList.remove("grid");
-    drop_zone.classList.remove("overflow-y-scroll");
+    // drop_zone.classList.remove("overflow-y-scroll");
     drop_zone.classList.add("outline");
     drop_zone.classList.add("outline-2");
     drop_zone.classList.add("outline-c14");
@@ -3303,6 +3308,7 @@ parcelHelpers.export(exports, "dragOverHandler", ()=>dragOverHandler);
 parcelHelpers.export(exports, "onClickHandler", ()=>onClickHandler);
 var _createPdfItem = require("./create_pdf_item");
 var _createPdfItemDefault = parcelHelpers.interopDefault(_createPdfItem);
+var _spinner = require("./spinner");
 function makeThumb(page) {
     let scale = 0.2;
     let viewport = page.getViewport({
@@ -3365,11 +3371,12 @@ drop_zone.addEventListener("drop", dropHandler);
 drop_zone.addEventListener("dragover", dragOverHandler);
 drop_zone.addEventListener("click", onClickHandler);
 
-},{"./create_pdf_item":"hJBGg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hJBGg":[function(require,module,exports) {
+},{"./create_pdf_item":"hJBGg","./spinner":"e4vVD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hJBGg":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>createPdfItem);
 var _dragAndDrop = require("./drag_and_drop");
+var _spinner = require("./spinner");
 function formatNewDropzone() {
     drop_zone.classList.remove("flex-col");
     drop_zone.classList.remove("flex-wrap");
@@ -3385,6 +3392,7 @@ function formatNewDropzone() {
     drop_zone.classList.add("auto-rows-min");
 }
 function createPdfItem(file) {
+    (0, _spinner.setSpinner)(true);
     upload_image.remove();
     upload_title.remove();
     formatNewDropzone();
@@ -3429,11 +3437,22 @@ function createPdfItem(file) {
         });
     };
     fileReader.readAsArrayBuffer(file);
+    (0, _spinner.setSpinner)(false);
 }
 const upload_image = document.getElementById("upload_image");
 const upload_title = document.getElementById("upload_title");
 
-},{"./drag_and_drop":"kaOPZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1YX9i":[function(require,module,exports) {
+},{"./drag_and_drop":"kaOPZ","./spinner":"e4vVD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e4vVD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "setSpinner", ()=>setSpinner);
+function setSpinner(show) {
+    if (show) spinner.classList.remove("hidden");
+    else spinner.classList.add("hidden");
+}
+const spinner = document.getElementById("spinner-miranda");
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1YX9i":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _index = require("./api/index");
@@ -31587,6 +31606,7 @@ parcelHelpers.exportAll(_layout, exports);
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>successPageFormatAndLink);
+var _script = require("./script");
 async function successPageFormatAndLink(pdf, filename) {
     const blob = new Blob([
         pdf
@@ -31601,9 +31621,10 @@ async function successPageFormatAndLink(pdf, filename) {
     drop_zone.appendChild(success);
     success.classList.remove("hidden");
     restart_button.classList.remove("hidden");
+    (0, _script.sortable).option("disabled", true);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fCPgD":[function(require,module,exports) {
+},{"./script":"dV6cC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fCPgD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>initHandlePdfSelect);
@@ -31623,6 +31644,7 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>initHandleSplitPdf);
 var _formatDropZone = require("./format_drop_zone");
 var _formatDropZoneDefault = parcelHelpers.interopDefault(_formatDropZone);
+var _spinner = require("./spinner");
 var _succesPageFormat = require("./succes_page_format");
 var _succesPageFormatDefault = parcelHelpers.interopDefault(_succesPageFormat);
 var _pdfLib = require("pdf-lib");
@@ -31646,6 +31668,7 @@ function initHandleSplitPdf() {
             inputDe.placeholder = 1;
             inputAte.placeholder = numberPages;
             if (inputDe.value && inputAte.value && inputDe.value != 0 && inputAte.value != 0 && inputDe.value >= 1 && inputAte.value >= 1 && inputDe.value <= inputAte.value) {
+                (0, _spinner.setSpinner)(true);
                 const startPage = inputDe.value;
                 const lastPage = inputAte.value;
                 for(let i = startPage; i <= lastPage; i++){
@@ -31656,6 +31679,7 @@ function initHandleSplitPdf() {
                 }
                 const splittedPdf = await split_pdf.save();
                 createDownloadPdfSplitted(splittedPdf);
+                (0, _spinner.setSpinner)(false);
             }
         }
     }
@@ -31665,6 +31689,6 @@ function initHandleSplitPdf() {
     split_button.addEventListener("click", handleSplitButtonClick);
 }
 
-},{"./format_drop_zone":"d5Noq","./succes_page_format":"62KCs","pdf-lib":"1YX9i","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["2L15i","dV6cC"], "dV6cC", "parcelRequireeb4f")
+},{"./format_drop_zone":"d5Noq","./spinner":"e4vVD","./succes_page_format":"62KCs","pdf-lib":"1YX9i","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["2L15i","dV6cC"], "dV6cC", "parcelRequireeb4f")
 
 //# sourceMappingURL=index.e82f28a0.js.map
