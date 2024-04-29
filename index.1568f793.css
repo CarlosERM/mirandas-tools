@@ -274,6 +274,35 @@ img, video {
   left: 50%;
 }
 
+.bottom-0 {
+  bottom: 0;
+}
+
+.bottom-6 {
+  bottom: 1.5rem;
+}
+
+.m-10 {
+  margin: 2.5rem;
+}
+
+.m-12 {
+  margin: 3rem;
+}
+
+.m-20 {
+  margin: 5rem;
+}
+
+.m-16 {
+  margin: 4rem;
+}
+
+.mx-12 {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -284,6 +313,10 @@ img, video {
 
 .mb-6 {
   margin-bottom: 1.5rem;
+}
+
+.mt-14 {
+  margin-top: 3.5rem;
 }
 
 .mt-8 {
@@ -308,6 +341,26 @@ img, video {
 
 .h-full {
   height: 100%;
+}
+
+.h-dvh {
+  height: 100dvh;
+}
+
+.h-min {
+  height: min-content;
+}
+
+.h-2\/5 {
+  height: 40%;
+}
+
+.max-h-80 {
+  max-height: 20rem;
+}
+
+.max-h-96 {
+  max-height: 24rem;
 }
 
 .w-40 {
@@ -379,6 +432,10 @@ img, video {
   overflow-y: scroll;
 }
 
+.overscroll-none {
+  overscroll-behavior: none;
+}
+
 .text-nowrap {
   text-wrap: nowrap;
 }
@@ -408,11 +465,6 @@ img, video {
 .bg-c1 {
   --tw-bg-opacity: 1;
   background-color: rgb(37 37 37 / var(--tw-bg-opacity));
-}
-
-.bg-c13 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(235 235 235 / var(--tw-bg-opacity));
 }
 
 .bg-c2 {
@@ -663,6 +715,14 @@ input[type="number"] {
 }
 
 @media (width >= 640px) {
+  .sm\:m-0 {
+    margin: 0;
+  }
+
+  .sm\:h-full {
+    height: 100%;
+  }
+
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -674,8 +734,46 @@ input[type="number"] {
 }
 
 @media (width >= 768px) {
+  .md\:m-0 {
+    margin: 0;
+  }
+
+  .md\:mx-0 {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .md\:h-full {
+    height: 100%;
+  }
+
+  .md\:max-h-full {
+    max-height: 100%;
+  }
+
+  .md\:grow {
+    flex-grow: 1;
+  }
+
+  .md\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:flex-row {
+    flex-direction: row;
+  }
+
+  .md\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 }
 
@@ -690,10 +788,6 @@ input[type="number"] {
 
   .lg\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .lg\:flex-row {
-    flex-direction: row;
   }
 
   .lg\:gap-4 {

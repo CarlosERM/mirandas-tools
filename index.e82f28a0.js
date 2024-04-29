@@ -3311,10 +3311,11 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "makeThumb", ()=>makeThumb);
 parcelHelpers.export(exports, "handlePdfClick", ()=>handlePdfClick);
-parcelHelpers.export(exports, "createPdfItem", ()=>createPdfItem);
 parcelHelpers.export(exports, "dropHandler", ()=>dropHandler);
 parcelHelpers.export(exports, "dragOverHandler", ()=>dragOverHandler);
 parcelHelpers.export(exports, "onClickHandler", ()=>onClickHandler);
+var _createPdfItem = require("./create_pdf_item");
+var _createPdfItemDefault = parcelHelpers.interopDefault(_createPdfItem);
 function makeThumb(page) {
     let scale = 0.2;
     let viewport = page.getViewport({
@@ -3347,65 +3348,6 @@ function makeThumb(page) {
 function handlePdfClick(e) {
     e.stopPropagation();
 }
-function formatNewDropzone() {
-    drop_zone.classList.remove("flex-col");
-    drop_zone.classList.remove("flex-wrap");
-    drop_zone.classList.remove("justify-center");
-    drop_zone.classList.remove("flex");
-    drop_zone.classList.add("grid");
-    drop_zone.classList.add("sm:grid-cols-2");
-    drop_zone.classList.add("md:grid-cols-3");
-    drop_zone.classList.add("lg:grid-cols-4");
-    drop_zone.classList.add("xl:grid-cols-5");
-    drop_zone.classList.add("gap-4");
-    drop_zone.classList.add("overflow-y-scroll");
-    drop_zone.classList.add("auto-rows-min");
-}
-function createPdfItem(file) {
-    upload_image.remove();
-    upload_title.remove();
-    formatNewDropzone();
-    let fileReader = new FileReader();
-    fileReader.onload = async function() {
-        let typedArray = new Uint8Array(this.result);
-        let pdfData = typedArray.buffer;
-        let pdfBlob = new Blob([
-            pdfData
-        ], {
-            type: "application/pdf"
-        });
-        let url = URL.createObjectURL(pdfBlob);
-        pdfjsLib.getDocument(url).promise.then(function(doc) {
-            return doc.getPage(1).then(makeThumb).then(function(canvas) {
-                const itemPdf = document.createElement("a");
-                itemPdf.href = url;
-                itemPdf.target = "_blank";
-                itemPdf.rel = "noopener noreferrer";
-                itemPdf.classList.add("py-4");
-                itemPdf.classList.add("pdf-item");
-                itemPdf.classList.add("px-3");
-                itemPdf.classList.add("flex");
-                itemPdf.classList.add("flex-col");
-                itemPdf.classList.add("gap-2");
-                itemPdf.classList.add("rounded-md");
-                itemPdf.classList.add("bg-c1");
-                itemPdf.classList.add("hover:bg-c13");
-                itemPdf.classList.add("hover:bg-opacity-10");
-                itemPdf.classList.add("cursor-pointer");
-                const namePdf = document.createElement("h3");
-                namePdf.classList.add("text-center");
-                namePdf.innerText = file.name;
-                canvas.classList.add("self-center");
-                canvas.classList.add("rounded-md");
-                canvas.addEventListener("click", handlePdfClick);
-                itemPdf.appendChild(canvas);
-                itemPdf.appendChild(namePdf);
-                drop_zone.appendChild(itemPdf);
-            });
-        });
-    };
-    fileReader.readAsArrayBuffer(file);
-}
 function dropHandler(e) {
     e.preventDefault();
     if (e.dataTransfer.items) [
@@ -3413,7 +3355,7 @@ function dropHandler(e) {
     ].forEach(async (item, i)=>{
         if (item.type == "application/pdf") {
             let file = item.getAsFile();
-            createPdfItem(file);
+            (0, _createPdfItemDefault.default)(file);
         }
     });
     else [
@@ -3436,7 +3378,75 @@ drop_zone.addEventListener("drop", dropHandler);
 drop_zone.addEventListener("dragover", dragOverHandler);
 drop_zone.addEventListener("click", onClickHandler);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1YX9i":[function(require,module,exports) {
+},{"./create_pdf_item":"hJBGg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hJBGg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>createPdfItem);
+var _dragAndDrop = require("./drag_and_drop");
+function formatNewDropzone() {
+    drop_zone.classList.remove("flex-col");
+    drop_zone.classList.remove("flex-wrap");
+    drop_zone.classList.remove("justify-center");
+    drop_zone.classList.remove("flex");
+    drop_zone.classList.add("grid");
+    drop_zone.classList.add("sm:grid-cols-2");
+    drop_zone.classList.add("md:grid-cols-2");
+    drop_zone.classList.add("lg:grid-cols-4");
+    drop_zone.classList.add("xl:grid-cols-5");
+    drop_zone.classList.add("gap-4");
+    //   drop_zone.classList.add("overflow-y-scroll");
+    drop_zone.classList.add("auto-rows-min");
+}
+function createPdfItem(file) {
+    upload_image.remove();
+    upload_title.remove();
+    formatNewDropzone();
+    let fileReader = new FileReader();
+    fileReader.onload = async function() {
+        let typedArray = new Uint8Array(this.result);
+        let pdfData = typedArray.buffer;
+        let pdfBlob = new Blob([
+            pdfData
+        ], {
+            type: "application/pdf"
+        });
+        let url = URL.createObjectURL(pdfBlob);
+        pdfjsLib.getDocument(url).promise.then(function(doc) {
+            return doc.getPage(1).then((0, _dragAndDrop.makeThumb)).then(function(canvas) {
+                const itemPdf = document.createElement("a");
+                itemPdf.href = url;
+                itemPdf.target = "_blank";
+                itemPdf.rel = "noopener noreferrer";
+                itemPdf.classList.add("py-4");
+                itemPdf.classList.add("pdf-item");
+                itemPdf.classList.add("px-3");
+                itemPdf.classList.add("flex");
+                itemPdf.classList.add("flex-col");
+                itemPdf.classList.add("gap-2");
+                itemPdf.classList.add("rounded-md");
+                itemPdf.classList.add("bg-c1");
+                itemPdf.classList.add("hover:bg-c13");
+                itemPdf.classList.add("hover:bg-opacity-10");
+                itemPdf.classList.add("cursor-pointer");
+                const namePdf = document.createElement("h3");
+                namePdf.classList.add("text-center");
+                namePdf.innerText = file.name.substring(0, 10) + "...";
+                //   console.log(file.name.substring(0, 10));
+                canvas.classList.add("self-center");
+                canvas.classList.add("rounded-md");
+                canvas.addEventListener("click", (0, _dragAndDrop.handlePdfClick));
+                itemPdf.appendChild(canvas);
+                itemPdf.appendChild(namePdf);
+                drop_zone.appendChild(itemPdf);
+            });
+        });
+    };
+    fileReader.readAsArrayBuffer(file);
+}
+const upload_image = document.getElementById("upload_image");
+const upload_title = document.getElementById("upload_title");
+
+},{"./drag_and_drop":"kaOPZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1YX9i":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _index = require("./api/index");
@@ -31597,11 +31607,13 @@ async function successPageFormatAndLink(pdf, filename) {
     const url = URL.createObjectURL(blob);
     const success = document.getElementById("success-block");
     const link_download = document.getElementById("download-pdf");
+    const restart_button = document.getElementById("restart-button");
     drop_zone.innerHTML = "";
     link_download.href = url;
     link_download.download = filename;
     drop_zone.appendChild(success);
     success.classList.remove("hidden");
+    restart_button.classList.remove("hidden");
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fCPgD":[function(require,module,exports) {
@@ -31618,74 +31630,7 @@ function initHandlePdfSelect() {
     input_pdf.addEventListener("change", handlePdfSelect, false);
 }
 
-},{"./create_pdf_item":"hJBGg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hJBGg":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>createPdfItem);
-var _dragAndDrop = require("./drag_and_drop");
-function formatNewDropzone() {
-    drop_zone.classList.remove("flex-col");
-    drop_zone.classList.remove("flex-wrap");
-    drop_zone.classList.remove("justify-center");
-    drop_zone.classList.remove("flex");
-    drop_zone.classList.add("grid");
-    drop_zone.classList.add("sm:grid-cols-2");
-    drop_zone.classList.add("md:grid-cols-3");
-    drop_zone.classList.add("lg:grid-cols-4");
-    drop_zone.classList.add("xl:grid-cols-5");
-    drop_zone.classList.add("gap-4");
-    drop_zone.classList.add("overflow-y-scroll");
-    drop_zone.classList.add("auto-rows-min");
-}
-function createPdfItem(file) {
-    upload_image.remove();
-    upload_title.remove();
-    formatNewDropzone();
-    let fileReader = new FileReader();
-    fileReader.onload = async function() {
-        let typedArray = new Uint8Array(this.result);
-        let pdfData = typedArray.buffer;
-        let pdfBlob = new Blob([
-            pdfData
-        ], {
-            type: "application/pdf"
-        });
-        let url = URL.createObjectURL(pdfBlob);
-        pdfjsLib.getDocument(url).promise.then(function(doc) {
-            return doc.getPage(1).then((0, _dragAndDrop.makeThumb)).then(function(canvas) {
-                const itemPdf = document.createElement("a");
-                itemPdf.href = url;
-                itemPdf.target = "_blank";
-                itemPdf.rel = "noopener noreferrer";
-                itemPdf.classList.add("py-4");
-                itemPdf.classList.add("pdf-item");
-                itemPdf.classList.add("px-3");
-                itemPdf.classList.add("flex");
-                itemPdf.classList.add("flex-col");
-                itemPdf.classList.add("gap-2");
-                itemPdf.classList.add("rounded-md");
-                itemPdf.classList.add("bg-c1");
-                itemPdf.classList.add("hover:bg-c13");
-                itemPdf.classList.add("hover:bg-opacity-10");
-                itemPdf.classList.add("cursor-pointer");
-                const namePdf = document.createElement("h3");
-                namePdf.classList.add("text-center");
-                namePdf.innerText = file.name;
-                canvas.classList.add("self-center");
-                canvas.classList.add("rounded-md");
-                canvas.addEventListener("click", (0, _dragAndDrop.handlePdfClick));
-                itemPdf.appendChild(canvas);
-                itemPdf.appendChild(namePdf);
-                drop_zone.appendChild(itemPdf);
-            });
-        });
-    };
-    fileReader.readAsArrayBuffer(file);
-}
-const upload_image = document.getElementById("upload_image");
-const upload_title = document.getElementById("upload_title");
-
-},{"./drag_and_drop":"kaOPZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6GVMP":[function(require,module,exports) {
+},{"./create_pdf_item":"hJBGg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6GVMP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>initHandleSplitPdf);
