@@ -3257,8 +3257,8 @@ function initMergePdf() {
     }
     async function createDownloadPdfMerged() {
         if (canvas_items.length) {
-            (0, _formatDropZoneDefault.default)();
             const mergedPdfFile = await mergePdfs();
+            (0, _formatDropZoneDefault.default)();
             (0, _succesPageFormatDefault.default)(mergedPdfFile, "merged_pdf.pdf");
         }
     }
@@ -3291,19 +3291,6 @@ function formatDropZoneOnSuccess() {
     drop_zone.removeEventListener("drop", (0, _dragAndDrop.dropHandler));
     drop_zone.removeEventListener("dragover", (0, _dragAndDrop.dragOverHandler));
     drop_zone.removeEventListener("click", (0, _dragAndDrop.onClickHandler));
-}
-async function successPageFormatAndLink(pdf, filename) {
-    const blob = new Blob([
-        pdf
-    ]);
-    const url = URL.createObjectURL(blob);
-    const success = document.getElementById("success-block");
-    const link_download = document.getElementById("download-pdf");
-    drop_zone.innerHTML = "";
-    link_download.href = url;
-    link_download.download = filename;
-    drop_zone.appendChild(success);
-    success.classList.remove("hidden");
 }
 
 },{"./drag_and_drop":"kaOPZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kaOPZ":[function(require,module,exports) {
