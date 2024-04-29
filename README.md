@@ -2,6 +2,10 @@
 
 This is a site made to merge and split pdfs!
 
+Live Site: [Site](https://carloserm.github.io/mirandas-tools/)
+
+Figma: [Design](https://www.figma.com/file/UOyKR9LpE1d5OoO9ITc9Uv/Miranda-Tools?type=design&node-id=0%3A1&mode=design&t=j1MBO52nlRYgzm21-1)
+
 ## Technologies:
 
 - JavaScript
@@ -18,8 +22,6 @@ This is a site made to merge and split pdfs!
 ### Mobile
 
 <img src="https://github.com/CarlosERM/mirandas-tools/assets/74724103/578e5f1b-13f9-4172-ba85-24849fdff96d" alt="Miranda's Tools - Mobile" width="250"/>
-
-npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
 
 ## How to run
 
