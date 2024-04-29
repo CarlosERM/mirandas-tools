@@ -1,4 +1,5 @@
 import { makeThumb, handlePdfClick } from "./drag_and_drop";
+import { setSpinner } from "./spinner";
 function formatNewDropzone() {
   drop_zone.classList.remove("flex-col");
   drop_zone.classList.remove("flex-wrap");
@@ -17,9 +18,9 @@ function formatNewDropzone() {
 }
 
 export default function createPdfItem(file) {
+  setSpinner(true);
   upload_image.remove();
   upload_title.remove();
-
   formatNewDropzone();
   let fileReader = new FileReader();
 
@@ -68,6 +69,7 @@ export default function createPdfItem(file) {
     });
   };
   fileReader.readAsArrayBuffer(file);
+  setSpinner(false);
 }
 const upload_image = document.getElementById("upload_image");
 const upload_title = document.getElementById("upload_title");

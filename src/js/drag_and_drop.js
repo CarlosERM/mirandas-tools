@@ -1,4 +1,5 @@
 import createPdfItem from "./create_pdf_item";
+import { setSpinner } from "./spinner";
 export function makeThumb(page) {
   let scale = 0.2;
   let viewport = page.getViewport({ scale: scale });

@@ -1,4 +1,5 @@
 import formatDropZoneOnSuccess from "./format_drop_zone";
+import { setSpinner } from "./spinner";
 import successPageFormatAndLink from "./succes_page_format";
 import { PDFDocument } from "pdf-lib";
 
@@ -35,6 +36,7 @@ export default function initHandleSplitPdf() {
         inputAte.value >= 1 &&
         inputDe.value <= inputAte.value
       ) {
+        setSpinner(true);
         const startPage = inputDe.value;
         const lastPage = inputAte.value;
         for (let i = startPage; i <= lastPage; i++) {
@@ -44,6 +46,7 @@ export default function initHandleSplitPdf() {
 
         const splittedPdf = await split_pdf.save();
         createDownloadPdfSplitted(splittedPdf);
+        setSpinner(false);
       }
     }
   }

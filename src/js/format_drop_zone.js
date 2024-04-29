@@ -1,5 +1,4 @@
 import { dropHandler, dragOverHandler, onClickHandler } from "./drag_and_drop";
-
 export default function formatDropZoneOnSuccess() {
   drop_zone.classList.remove("outline-dashed");
   drop_zone.classList.remove("hover:outline-offset-8");
@@ -9,7 +8,7 @@ export default function formatDropZoneOnSuccess() {
   drop_zone.classList.remove("outline-c6");
   drop_zone.classList.remove("cursor-pointer");
   drop_zone.classList.remove("grid");
-  drop_zone.classList.remove("overflow-y-scroll");
+  // drop_zone.classList.remove("overflow-y-scroll");
 
   drop_zone.classList.add("outline");
   drop_zone.classList.add("outline-2");

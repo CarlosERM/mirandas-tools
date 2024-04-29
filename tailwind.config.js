@@ -18,6 +18,9 @@ module.exports = {
         c12: "#D8D8D8",
         c13: "#EBEBEB",
         c14: "#555555",
+        c15: "#5A5A5A",
+        c16: "#7A7A7A",
+        c17: "#3C3C3C",
       },
       fontFamily: {
         open: ["Open Sans"],

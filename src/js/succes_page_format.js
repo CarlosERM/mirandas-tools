@@ -1,3 +1,4 @@
+import { sortable } from "./script";
 export default async function successPageFormatAndLink(pdf, filename) {
   const blob = new Blob([pdf]);
   const url = URL.createObjectURL(blob);
@@ -13,4 +14,5 @@ export default async function successPageFormatAndLink(pdf, filename) {
 
   success.classList.remove("hidden");
   restart_button.classList.remove("hidden");
+  sortable.option("disabled", true);
 }

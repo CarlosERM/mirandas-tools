@@ -8,7 +8,7 @@ const pdfjsLib = window["pdfjs-dist/build/pdf"];
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
 
-const sortable = Sortable.create(drop_zone, {
+export const sortable = Sortable.create(drop_zone, {
   animation: 150,
 });
 
