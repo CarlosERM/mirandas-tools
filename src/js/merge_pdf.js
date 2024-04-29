@@ -19,8 +19,8 @@ export default function initMergePdf() {
   }
   async function createDownloadPdfMerged() {
     if (canvas_items.length) {
-      formatDropZoneOnSuccess();
       const mergedPdfFile = await mergePdfs();
+      formatDropZoneOnSuccess();
       successPageFormatAndLink(mergedPdfFile, "merged_pdf.pdf");
     }
   }
