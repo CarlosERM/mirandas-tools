@@ -7,12 +7,12 @@ function formatNewDropzone() {
 
   drop_zone.classList.add("grid");
   drop_zone.classList.add("sm:grid-cols-2");
-  drop_zone.classList.add("md:grid-cols-3");
+  drop_zone.classList.add("md:grid-cols-2");
   drop_zone.classList.add("lg:grid-cols-4");
   drop_zone.classList.add("xl:grid-cols-5");
 
   drop_zone.classList.add("gap-4");
-  drop_zone.classList.add("overflow-y-scroll");
+  //   drop_zone.classList.add("overflow-y-scroll");
   drop_zone.classList.add("auto-rows-min");
 }
 
@@ -54,7 +54,8 @@ export default function createPdfItem(file) {
 
           const namePdf = document.createElement("h3");
           namePdf.classList.add("text-center");
-          namePdf.innerText = file.name;
+          namePdf.innerText = file.name.substring(0, 10) + "...";
+          //   console.log(file.name.substring(0, 10));
 
           canvas.classList.add("self-center");
           canvas.classList.add("rounded-md");
